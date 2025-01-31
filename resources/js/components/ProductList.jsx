@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styles from '../../css/ProductList.module.css';
 
 const ProductList = () => {
@@ -12,10 +11,16 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async (page) => {
       try {
-        const response = await axios.get(`/api/products?page=${page}`);
-        setProducts(response.data.data);
-        setCurrentPage(response.data.meta.current_page); // Actualizar página actual
-        setTotalPages(response.data.meta.last_page); // Actualizar total de páginas
+        const response = await fetch(`http://localhost/api/products?page=${page}`, {
+          credentials: "include",
+          });        if (response.redirected) {
+          window.location.href = response.url;
+          return;
+        }
+        const data = await response.json();
+        setProducts(data.data);
+        setCurrentPage(data.meta.current_page); // Actualizar página actual
+        setTotalPages(data.meta.last_page); // Actualizar total de páginas
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -33,6 +38,8 @@ const ProductList = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+
 
   return (
     <div className={styles.productList}>
