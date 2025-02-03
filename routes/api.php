@@ -11,3 +11,5 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('/products', [ProductController::class, 'index'])->Middleware('auth:sanctum');
+
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->middleware('auth:sanctum');

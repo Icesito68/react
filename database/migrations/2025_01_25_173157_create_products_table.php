@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('image');
             $table->timestamps();
+            $table->foreignId('user_id');
         });
     }
 

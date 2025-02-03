@@ -21,6 +21,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->text,
             'image' => $this->faker->imageUrl("https://picsum.photos/200"),
             'price' => $this->faker->numberBetween(100, 1000),
+            'user_id' => $this->faker->numberBetween(1, 3),
         ];
     }
 }
